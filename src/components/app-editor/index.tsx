@@ -196,12 +196,15 @@ const AppEditor: FC<IProps> = (props) => {
     const saveContent = editorRef.current?.getValue()
     writeFileWithText(saveContent, fileHandle!)
   }
-  const handleKeyDownCapture = useCallback((e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (isSaveShortcut(e)) {
-      e.preventDefault()
-      handleSave()
-    }
-  }, [])
+  const handleKeyDownCapture = useCallback(
+    (e: React.KeyboardEvent<HTMLDivElement>) => {
+      if (isSaveShortcut(e)) {
+        e.preventDefault()
+        handleSave()
+      }
+    },
+    [fileHandle]
+  )
 
   const currentOpenedFileData = openedFilesDataOperator['get'](fileName)
   const tabs = new Array(...openedFilesDataMap.values())
